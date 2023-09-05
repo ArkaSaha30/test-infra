@@ -46,9 +46,9 @@ function parseArgs() {
   job="${1:-}"
   config="${CONFIG_PATH:-}"
   job_config_path="${JOB_CONFIG_PATH:-}"
-  out_dir="${OUT_DIR:-/mnt/disks/prowjob-out}"
+  out_dir="${OUT_DIR:-/Users/arkas1/Documents/mnt/disks/prowjob-out}"
   kind_config="${KIND_CONFIG:-}"
-  node_dir="${NODE_DIR:-/mnt/disks/kind-node}"  # Any pod hostPath mounts should be under this dir to reach the true host via the kind node.
+  node_dir="${NODE_DIR:-/Users/arkas1/Documents/mnt/disks/kind-node}"  # Any pod hostPath mounts should be under this dir to reach the true host via the kind node.
 
   local new_only="  (Only used when creating a new kind cluster.)"
   echo "job=${job}"
