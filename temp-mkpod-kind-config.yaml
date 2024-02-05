@@ -1,0 +1,9 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - extraMounts:
+      - containerPath: /Users/arkas1/Documents/mnt/disks/prowjob-out
+        hostPath: /Users/arkas1/Documents/mnt/disks/prowjob-out
+      # host <-> node mount for hostPath volumes in Pods. (All hostPaths should be under /Users/arkas1/Documents/mnt/disks/kind-node to reach the host.)
+      - containerPath: /Users/arkas1/Documents/mnt/disks/kind-node
+        hostPath: /Users/arkas1/Documents/mnt/disks/kind-node
