@@ -1,0 +1,32 @@
+presubmits:
+  ArkaSaha30/kubernetes:
+  - name: check-govulncheck-results
+    decorate: true
+    decoration_config:
+      timeout: 15m
+    branches:
+    - govulncheck-script
+    path_alias: k8s.io/kubernetes
+    always_run: false
+    optional: true
+    run_if_changed: '^(go.mod|go.sum|vendor)'
+    spec:
+      containers:
+      - image: golang
+        command:
+        - /bin/bash
+        args:
+        - -c
+        - |
+          ./hack/verify-govulncheck.sh
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 2
+            memory: 4Gi
+    annotations:
+      testgrid-create-test-group: "true"
+      testgrid-dashboards: sig-security-govulncheck-presubmit
+      description: Runs `govulncheck` for PRs related to go module changes
