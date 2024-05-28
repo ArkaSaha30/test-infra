@@ -1,5 +1,5 @@
 presubmits:
-  etcd-io/etcd:
+  ArkaSaha30/etcd:
   - name: pull-etcd-build
     cluster: eks-prow-build-cluster
     always_run: true
@@ -14,9 +14,15 @@ presubmits:
       - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20240515-17c6d50e24-master
         command:
         - runner.sh
-        args:
-        - make
-        - build
+        - |          
+          mkdir temp_build_logs
+          targets=('linux-amd64' 'linux-arm64' 'linux-arm' 'linux-ppc64le' 'linux-s390x' 'linux-386' 'darwin-amd64' 'darwin-ard64' 'windows-amd64')
+          for target in "${targets[@]}"
+          do
+            GOOS="${target%-*}" GOARCH="${target#*-}" make build > temp_build_logs/"${target}".log &
+          done
+          wait
+          echo -e "$(cat temp_build_logs/*.log)"
         resources:
           requests:
             cpu: "4"
